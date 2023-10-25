@@ -1,0 +1,5 @@
+com\jd\biblioteca\Libro.class
+com\jd\biblioteca\ListaEnlazada.class
+servlets\SvAgregarLibro.class
+com\jd\biblioteca\JAXRSConfiguration.class
+com\jd\biblioteca\resources\JavaEE8Resource.class
