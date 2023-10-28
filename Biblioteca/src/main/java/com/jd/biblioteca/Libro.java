@@ -3,24 +3,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.jd.biblioteca;
+import java.io.Serializable;
 
 /**
  *
  * @author juand
+ * Esta clase manejara los atributos de los libros a añadirse
  */
-public class Libro {
+public class Libro implements Serializable {
     public String titulo;
     public String autor;
-    public String año;
+    public String anio;
     public String foto;
 
     public Libro() {
     }
 
-    public Libro(String titulo, String autor, String año, String foto) {
+    public Libro(String titulo, String autor, String anio, String foto) {
         this.titulo = titulo;
         this.autor = autor;
-        this.año = año;
+        this.anio = anio;
         this.foto = foto;
     }
 
@@ -40,12 +42,12 @@ public class Libro {
         this.autor = autor;
     }
 
-    public String getAño() {
-        return año;
+    public String getAnio() {
+        return anio;
     }
 
-    public void setAño(String año) {
-        this.año = año;
+    public void setAnio(String anio) {
+        this.anio = anio;
     }
 
     public String getFoto() {

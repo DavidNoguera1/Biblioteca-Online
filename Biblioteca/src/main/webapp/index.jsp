@@ -24,13 +24,14 @@
                     <p class="lead text-white-50 mb-4">Nuestra biblioteca virtual te permitira agregar una variedad de libros explora diversos titulos a traves de la lectura!</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
                         <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#formulario">Agregar libro</a>
-                        <a class="btn btn-outline-light btn-lg px-4" href="#!">Mostrar libros</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="libros.jsp">Mostrar libros</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
+
 <section class="bg-light py-5" id="formulario">
     <div class="container px-5 my-5 px-5">
         <div class="text-center mb-5">
@@ -40,7 +41,7 @@
         </div>
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
-                <form id="contactForm">
+                <form id="contactForm" action="SvLibro" method="POST" enctype="multipart/form-data">
                     <!-- Título Input -->
                     <div class="form-floating mb-3">
                         <input class="form-control" id="titulo" name="titulo" type="text" title="Ingrese el título del libro" required>
@@ -53,13 +54,13 @@
                     </div>
                     <!-- Año Input -->
                     <div class="form-floating mb-3">
-                        <input class="form-control" id="año" name="año" type="text"  pattern="[0-9]*" title="Por favor, ingrese solo números." required>
-                        <label for="año">Año de publicación</label>
+                        <input class="form-control" id="anio" name="anio" type="text"  pattern="[0-9]*" title="Por favor, ingrese solo números." required>
+                        <label for="anio">Año de publicación</label>
                         <div class="invalid-feedback">El libro requiere un año de publicación válido.</div>
                     </div>
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="image">Imagen:</label>
-                        <input type="file" name="image" class="form-control" id="image" accept="image/*">
+                        <label class="input-group-text" for="foto">Foto:</label>
+                        <input type="file" name="foto" class="form-control" id="foto" accept="foto/*">
                     </div>
                     <!-- Submit Button -->
                     <div class="d-grid">
@@ -80,9 +81,9 @@
 <script>
     // Validación personalizada para el campo de imagen
     document.getElementById("contactForm").addEventListener("submit", function (event) {
-        var imageInput = document.getElementById("image");
+        var imageInput = document.getElementById("foto");
         if (imageInput.files.length === 0) {
-            alert("¡Imagen requerida!");
+            alert("¡Imagen del libro requerida!");
             event.preventDefault(); // Evita el envío del formulario si no se seleccionó una imagen
         }
     });
