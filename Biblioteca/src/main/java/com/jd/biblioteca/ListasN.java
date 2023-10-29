@@ -64,6 +64,21 @@ public class ListasN<T> implements Serializable {
         }
     }
     
+    public void agregarLibroAlFinal(Libro libro) {
+        Nodo nuevoNodo = new Nodo(libro);
+
+        if (inicio == null) {
+            // Si la lista está vacía, el nuevo nodo es tanto el inicio como el fin
+            inicio = nuevoNodo;
+            fin = nuevoNodo;
+        } else {
+            // Si no está vacía, el nuevo nodo se agrega al final y se actualiza el fin
+            nuevoNodo.anterior = fin;
+            fin.siguiente = nuevoNodo; // Establecer el enlace hacia adelante del último nodo al nuevo nodo
+            fin = nuevoNodo;
+        }
+    }
+
     // Método para guardar la lista en un archivo
     public static void guardarLista(ListasN listaActualizada, ServletContext context) {
         // Ruta relativa y absoluta del archivo de datos serializados
@@ -96,7 +111,7 @@ public class ListasN<T> implements Serializable {
                 e.printStackTrace();
             }
         }
-
+        
         if (lista == null) {
             lista = new ListasN<Libro>(); // Crea una nueva lista si no se pudo cargar desde el archivo
         }
