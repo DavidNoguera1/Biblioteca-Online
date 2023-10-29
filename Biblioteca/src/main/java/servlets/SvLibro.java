@@ -24,7 +24,6 @@ import javax.servlet.http.Part;
  *
  * @author David Noguera
  */
-
 @MultipartConfig
 @WebServlet(name = "SvLibro", urlPatterns = {"/SvLibro"})
 public class SvLibro extends HttpServlet {
@@ -34,8 +33,13 @@ public class SvLibro extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        // Inicializar la lista de libros en el método init
-        libros = new ListasN();
+
+        // Cargar la lista de libros desde el archivo al inicio de la aplicación
+        libros = ListasN.leerLista(getServletContext());
+
+        if (libros == null) {
+            libros = new ListasN<Libro>();
+        }
     }
 
     @Override
@@ -92,13 +96,13 @@ public class SvLibro extends HttpServlet {
         Libro nuevoLibro = new Libro(titulo, autor, anio, foto);
 
         // Agregar el libro al comienzo de la lista
-        libros.agregarLibroAlFinal(nuevoLibro);
-        
+        libros.agregarLibroAlComienzo(nuevoLibro);
+
         libros.listarLibros();
 
         // Guardar la lista actualizada en el archivo
         ListasN.guardarLista(libros, getServletContext());
-        
+
         // Redirige a la página libros.jsp
         response.sendRedirect("libros.jsp");
     }

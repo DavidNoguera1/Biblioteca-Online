@@ -78,21 +78,21 @@ public class ListasN<T> implements Serializable {
             fin = nuevoNodo;
         }
     }
-    
+
     public void listarLibros() {
-    Nodo actual = inicio; // Comenzamos desde el primer nodo
-    
-    while (actual != null) { // Recorremos la lista mientras haya nodos
-        Libro libro = actual.libro; // Obtenemos el libro del nodo actual
-        System.out.println("Título: " + libro.getTitulo());
-        System.out.println("Autor: " + libro.getAutor());
-        System.out.println("Año: " + libro.getAnio());
-        System.out.println("Foto: " + libro.getFoto());
-        System.out.println(); // Separador entre libros
-        
-        actual = actual.siguiente; // Avanzamos al siguiente nodo
+        Nodo actual = inicio; // Comenzamos desde el primer nodo
+
+        while (actual != null) { // Recorremos la lista mientras haya nodos
+            Libro libro = actual.libro; // Obtenemos el libro del nodo actual
+            System.out.println("Título: " + libro.getTitulo());
+            System.out.println("Autor: " + libro.getAutor());
+            System.out.println("Año: " + libro.getAnio());
+            System.out.println("Foto: " + libro.getFoto());
+            System.out.println(); // Separador entre libros
+
+            actual = actual.siguiente; // Avanzamos al siguiente nodo
+        }
     }
-}
 
     // Método para guardar la lista en un archivo
     public static void guardarLista(ListasN listaActualizada, ServletContext context) {
