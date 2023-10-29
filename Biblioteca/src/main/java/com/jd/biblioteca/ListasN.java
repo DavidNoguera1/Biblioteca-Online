@@ -23,10 +23,8 @@ import java.io.Serializable;
 import javax.servlet.ServletContext;
 
 // <T> tipo genérico declaracion de clase
-
 public class ListasN<T> implements Serializable {
-    
-    
+
     public Nodo inicio = null;
     public Nodo fin = null;
 
@@ -53,17 +51,19 @@ public class ListasN<T> implements Serializable {
         Nodo nuevoNodo = new Nodo(libro);
 
         if (inicio == null) {
-            // Si la lista está vacía, el nuevo nodo es tanto el inicio como el fin
+            // Caso 1: La lista está vacía
             inicio = nuevoNodo;
             fin = nuevoNodo;
         } else {
-            // Si no está vacía, el nuevo nodo se agrega al comienzo y se actualiza el inicio
+            // Caso 2: La lista no está vacía
             nuevoNodo.siguiente = inicio;
-            inicio.anterior = nuevoNodo; // Establecer el enlace hacia atrás del nodo actual al nuevo nodo
+            inicio.anterior = nuevoNodo;
+
+            // Actualiza el inicio
             inicio = nuevoNodo;
         }
     }
-    
+
     public void agregarLibroAlFinal(Libro libro) {
         Nodo nuevoNodo = new Nodo(libro);
 
@@ -78,6 +78,21 @@ public class ListasN<T> implements Serializable {
             fin = nuevoNodo;
         }
     }
+    
+    public void listarLibros() {
+    Nodo actual = inicio; // Comenzamos desde el primer nodo
+    
+    while (actual != null) { // Recorremos la lista mientras haya nodos
+        Libro libro = actual.libro; // Obtenemos el libro del nodo actual
+        System.out.println("Título: " + libro.getTitulo());
+        System.out.println("Autor: " + libro.getAutor());
+        System.out.println("Año: " + libro.getAnio());
+        System.out.println("Foto: " + libro.getFoto());
+        System.out.println(); // Separador entre libros
+        
+        actual = actual.siguiente; // Avanzamos al siguiente nodo
+    }
+}
 
     // Método para guardar la lista en un archivo
     public static void guardarLista(ListasN listaActualizada, ServletContext context) {
@@ -86,14 +101,13 @@ public class ListasN<T> implements Serializable {
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
         File archivo = new File(rutaAbsoluta);
 
-        try (FileOutputStream fos = new FileOutputStream(archivo);
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+        try (FileOutputStream fos = new FileOutputStream(archivo); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(listaActualizada);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
     // Método para leer la lista desde un archivo
     public static ListasN<Libro> leerLista(ServletContext context) {
         ListasN<Libro> lista = null;
@@ -102,8 +116,7 @@ public class ListasN<T> implements Serializable {
         File archivo = new File(rutaAbsoluta);
 
         if (archivo.exists() && archivo.isFile()) {
-            try (FileInputStream fis = new FileInputStream(archivo);
-                 ObjectInputStream ois = new ObjectInputStream(fis)) {
+            try (FileInputStream fis = new FileInputStream(archivo); ObjectInputStream ois = new ObjectInputStream(fis)) {
                 lista = (ListasN<Libro>) ois.readObject();
             } catch (EOFException e) {
                 System.out.println("El archivo de datos está vacío.");
@@ -111,7 +124,7 @@ public class ListasN<T> implements Serializable {
                 e.printStackTrace();
             }
         }
-        
+
         if (lista == null) {
             lista = new ListasN<Libro>(); // Crea una nueva lista si no se pudo cargar desde el archivo
         }
@@ -119,7 +132,3 @@ public class ListasN<T> implements Serializable {
         return lista;
     }
 }
-
-
-    
-

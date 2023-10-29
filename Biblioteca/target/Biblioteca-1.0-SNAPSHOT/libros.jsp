@@ -11,8 +11,8 @@
     <section class="bg-light py-5 border-bottom">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h2 class="fw-bolder">Pay as you grow</h2>
-                <p class="lead mb-0">With our no hassle pricing plans</p>
+                <h2 class="fw-bolder">Libros disponibles</h2>
+                <p class="lead mb-0">Escoge el que mas te guste :)</p>
             </div>
             <div class="row gx-5 justify-content-center">
                 <%
@@ -33,10 +33,10 @@
                                    Titulo: <%= current.libro.getTitulo()%> 
                                 </li>
                                 <li class="mb-2">
-                                    <%= current.libro.getAutor()%>
+                                   Autor: <%= current.libro.getAutor()%>
                                 </li>
                                 <li class="mb-2">
-                                    <%= current.libro.getAnio()%>
+                                    Año de publicacion: <%= current.libro.getAnio()%>
                                 </li>
                                 <li class="mb-2">
                                     <img src="imagenes/<%= current.libro.getFoto()%>" alt="<%= current.libro.getTitulo()%>" width="100" height="150">

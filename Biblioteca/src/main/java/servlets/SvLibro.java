@@ -93,6 +93,8 @@ public class SvLibro extends HttpServlet {
 
         // Agregar el libro al comienzo de la lista
         libros.agregarLibroAlFinal(nuevoLibro);
+        
+        libros.listarLibros();
 
         // Guardar la lista actualizada en el archivo
         ListasN.guardarLista(libros, getServletContext());
