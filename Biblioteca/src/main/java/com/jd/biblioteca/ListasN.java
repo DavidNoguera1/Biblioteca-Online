@@ -93,7 +93,44 @@ public class ListasN<T> implements Serializable {
             actual = actual.siguiente; // Avanzamos al siguiente nodo
         }
     }
+    
+    public void eliminarLibroPorTitulo(String titulo) {
+        Nodo actual = inicio;
 
+        // Buscamos el nodo con el título dado
+        while (actual != null) {
+            if (actual.libro.getTitulo().equals(titulo)) {
+                // Caso 1: El nodo a eliminar es el primero
+                if (actual == inicio) {
+                    inicio = actual.siguiente;
+                    if (inicio != null) {
+                        inicio.anterior = null;
+                    } else {
+                        fin = null;
+                    }
+                    return;
+                }
+
+                // Caso 2: El nodo a eliminar es el último
+                if (actual == fin) {
+                    fin = actual.anterior;
+                    fin.siguiente = null;
+                    return;
+                }
+
+                // Caso 3: El nodo a eliminar está en medio
+                actual.anterior.siguiente = actual.siguiente;
+                actual.siguiente.anterior = actual.anterior;
+                return;
+            }
+
+            actual = actual.siguiente; // Avanzamos al siguiente nodo
+        }
+
+        // Si el título no se encuentra en la lista
+        System.out.println("El libro con el título " + titulo + " no existe en la lista.");
+    }
+    
     // Método para guardar la lista en un archivo
     public static void guardarLista(ListasN listaActualizada, ServletContext context) {
         // Ruta relativa y absoluta del archivo de datos serializados

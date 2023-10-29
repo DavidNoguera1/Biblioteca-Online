@@ -45,7 +45,24 @@ public class SvLibro extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String tipo = request.getParameter("tipo");
+        if (tipo != null && tipo.equals("delete")) {
+            String tituloToDelete = request.getParameter("titulo");
+            eliminarLibroPorTitulo(tituloToDelete);
 
+            //Después de eliminar un libro con éxito en tu servlet
+            response.sendRedirect("libros.jsp");
+        }
+    }
+    
+    public void eliminarLibroPorTitulo(String titulo) {
+        // Asegúrate de tener la implementación de la clase Nodo y el método eliminarLibroPorTitulo en tu clase ListasN
+
+        // Suponiendo que tu clase ListasN tiene el método eliminarLibroPorTitulo, puedes hacer lo siguiente:
+        libros.eliminarLibroPorTitulo(titulo);
+
+        // Guarda la lista actualizada en el archivo después de la eliminación
+        ListasN.guardarLista(libros, getServletContext());
     }
 
     //Emplearemos el metodo doPost para el añadido de los libros

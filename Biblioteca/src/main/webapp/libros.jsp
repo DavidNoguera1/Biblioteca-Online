@@ -42,7 +42,9 @@
                                     <img src="imagenes/<%= current.libro.getFoto()%>" alt="<%= current.libro.getTitulo()%>" width="100" height="150">
                                 </li>
                             </ul>
-                            <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Choose plan</a></div>
+                            <div class="d-grid">
+                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="tituloEliminar('<%= current.libro.getTitulo() %>')">Eliminar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,5 +58,35 @@
             </div>
         </div>
     </section>
-                
+    <div class="modal fade" id="confirmacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Eliminar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de que desea eliminar la tarea?
+                  </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminarLibro()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <script>
+    var Titulo;
+    
+    function tituloEliminar(titulo) {
+        Titulo = titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
+        
+    }
+        
+    function eliminarLibro() {
+        location.href = "SvLibro?tipo=delete&titulo=" + Titulo;
+        Titulo = null;
+    }
+    </script>            
 <%@include file= "templates/footer.jsp" %>  
