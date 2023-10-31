@@ -20,6 +20,8 @@ import java.io.Serializable;
  * @param <Libros>
  */
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletContext;
 
 // <T> tipo genérico declaracion de clase
@@ -130,6 +132,22 @@ public class ListasN<T> implements Serializable {
         // Si el título no se encuentra en la lista
         System.out.println("El libro con el título " + titulo + " no existe en la lista.");
     }
+    
+    public ListasN<Libro> buscarPorTituloAutor(String query) {
+        ListasN<Libro> librosEncontrados = new ListasN<>();
+        Nodo actual = this.inicio;
+
+        while (actual != null) {
+            if (actual.libro.getTitulo().toLowerCase().contains(query.toLowerCase())
+                    || actual.libro.getAutor().toLowerCase().contains(query.toLowerCase())) {
+                librosEncontrados.agregarLibroAlFinal(actual.libro);
+            }
+            actual = actual.siguiente;
+        }
+
+        return librosEncontrados;
+    }
+
     
     // Método para guardar la lista en un archivo
     public static void guardarLista(ListasN listaActualizada, ServletContext context) {

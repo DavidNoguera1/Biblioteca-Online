@@ -45,9 +45,14 @@
                             <div class="d-grid">
                                 <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="tituloEliminar('<%= current.libro.getTitulo() %>')">Eliminar</a>
                             </div>
+                            <br>
+                            <div class="d-grid">
+                                <a class="btn btn-outline-success" href="#!" data-bs-toggle="modal" data-bs-target="#PrestarLibro" onclick="tituloEliminar('<%= current.libro.getTitulo() %>')">Prestar Libro</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <br>
                 <%
                             current = current.siguiente;
                         }
@@ -57,6 +62,7 @@
                 %>
             </div>
         </div>
+            
     </section>
     <div class="modal fade" id="confirmacionModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -66,11 +72,29 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Está seguro de que desea eliminar la tarea?
-                  </div>
+                    <p>¿Está seguro de que desea eliminar la tarea: <span id="bookTitle"></span></p> 
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-danger" onclick="eliminarLibro()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+            
+    <div class="modal fade" id="PrestarLibro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Prestar libro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Quieres pedir prestado el siguiente  libro?
+                  </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success"  >Prestar </button>
                 </div>
             </div>
         </div>
@@ -81,6 +105,7 @@
     
     function tituloEliminar(titulo) {
         Titulo = titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
+        document.getElementById("bookTitle").innerText = Titulo;
         
     }
         
@@ -88,5 +113,13 @@
         location.href = "SvLibro?tipo=delete&titulo=" + Titulo;
         Titulo = null;
     }
-    </script>            
+    
+    function titulo() {
+        return Titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
+        
+    }
+    
+    </script>
+    
+    
 <%@include file= "templates/footer.jsp" %>  
