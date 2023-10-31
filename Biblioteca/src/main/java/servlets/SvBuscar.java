@@ -9,6 +9,7 @@ import com.jd.biblioteca.ListasN;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,85 +22,43 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SvBuscar", urlPatterns = {"/SvBuscar"})
 public class SvBuscar extends HttpServlet {
-    
-    public ListasN<Libro> libros;  // Lista de libros
 
     @Override
-    public void init() throws ServletException {
-        super.init();
-
-        // Cargar la lista de libros desde el archivo al inicio de la aplicación
-        libros = ListasN.leerLista(getServletContext());
-
-        if (libros == null) {
-            libros = new ListasN<Libro>();
-        }
-    }
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SvBuscar</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SvBuscar at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        String tituloOAutor = request.getParameter("tituloOAutor");
+
+        // Verifica si se ha proporcionado un título o autor en la solicitud
+        if (tituloOAutor != null && !tituloOAutor.trim().isEmpty()) {
+            // Limpia los espacios en blanco al comienzo y al final del título o autor
+            tituloOAutor = tituloOAutor.trim();
+
+            ListasN<Libro> listaLibros = ListasN.leerLista(getServletContext());
+            Libro libro = listaLibros.buscarLibroPorTituloOAutor(tituloOAutor);
+
+            if (libro != null) {
+                // Guarda el libro encontrado en el alcance de solicitud
+                request.setAttribute("libroEncontrado", libro);
+                // Redirige a searchLibro.jsp
+                String forward = "searchLibro.jsp";
+                RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+                dispatcher.forward(request, response);
+            } else {
+                // Maneja el caso en el que no se encuentra el libro
+                response.setContentType("text/plain");
+                response.getWriter().write("Libro no encontrado");
+            }
+        } else {
+            // Maneja el caso en el que el título o autor esté vacío después de la limpieza
+            response.setContentType("text/plain");
+            response.getWriter().write("Por favor, ingrese un título o autor válido");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    
-        
-        
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        
+        // Lógica para el método POST si es necesario
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

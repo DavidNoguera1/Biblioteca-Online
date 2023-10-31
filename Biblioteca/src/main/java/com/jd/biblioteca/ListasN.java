@@ -133,20 +133,30 @@ public class ListasN<T> implements Serializable {
         System.out.println("El libro con el título " + titulo + " no existe en la lista.");
     }
     
-    public ListasN<Libro> buscarPorTituloAutor(String query) {
-        ListasN<Libro> librosEncontrados = new ListasN<>();
-        Nodo actual = this.inicio;
+    public Libro buscarLibroPorTituloOAutor(String tituloOAutor) {
+    // Limpia los espacios en blanco al comienzo y al final del título o autor
+    tituloOAutor = tituloOAutor.trim();
 
-        while (actual != null) {
-            if (actual.libro.getTitulo().toLowerCase().contains(query.toLowerCase())
-                    || actual.libro.getAutor().toLowerCase().contains(query.toLowerCase())) {
-                librosEncontrados.agregarLibroAlFinal(actual.libro);
-            }
-            actual = actual.siguiente;
+    // Convertir el título o autor proporcionado a minúsculas (o mayúsculas)
+    String tituloOAutorBuscado = tituloOAutor.toLowerCase(); // Esto con el fin de evitar posibles complicaciones
+
+    Nodo actual = inicio;
+
+    while (actual != null) {
+        // Limpia los espacios en blanco al comienzo y al final del título y autor del libro actual
+        String titulo = actual.libro.getTitulo().trim();
+        String autor = actual.libro.getAutor().trim();
+
+        // Convertir el título y autor del libro actual a minúsculas (o mayúsculas) y comparar
+        if (titulo.toLowerCase().equals(tituloOAutorBuscado) || autor.toLowerCase().equals(tituloOAutorBuscado)) {
+            return actual.libro; // Retorna el libro si se encuentra
         }
 
-        return librosEncontrados;
+        actual = actual.siguiente; // Avanza al siguiente nodo
     }
+
+    return null; // Retorna null si no se encuentra el libro
+}
 
     
     // Método para guardar la lista en un archivo

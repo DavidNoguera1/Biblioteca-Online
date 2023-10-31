@@ -18,8 +18,8 @@
             <div class="container px-5">
                 <a class="navbar-brand" href="index.jsp">Biblioteca</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <form class="d-flex" action="SvBuscar" method="GET">
-                    <input class="form-control me-2" type="search" name="parametro" placeholder="Buscar libro" aria-label="Search">
+                <form class="d-flex" action="searchLibro.jsp" method="GET">
+                    <input class="form-control me-2" type="search" name="tituloOAutor" placeholder="Buscar libro" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit">Buscar</button>
                 </form>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
