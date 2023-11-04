@@ -1,4 +1,4 @@
-<%@include file= "templates/headerIndex.jsp" %>
+<%@include file= "templates/header.jsp" %>
 
 <!-- Header-->
 <header class="bg-dark py-5">

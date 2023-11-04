@@ -1,5 +1,6 @@
 com\jd\biblioteca\ListasN.class
 com\jd\biblioteca\ListasN$Nodo.class
+servlets\SvPrestar.class
 servlets\SvBuscar.class
 com\jd\biblioteca\JAXRSConfiguration.class
 com\jd\biblioteca\Libro.class

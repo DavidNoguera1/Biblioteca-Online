@@ -6,7 +6,7 @@
 
 <%@page import="com.jd.biblioteca.ListasN"%>
 <%@page import="com.jd.biblioteca.Libro"%>
-<%@include file= "templates/headerIndex.jsp" %>
+<%@include file= "templates/header.jsp" %>
 
     <section class="bg-light py-5 border-bottom">
         <div class="container px-5 my-5">
@@ -24,7 +24,7 @@
                         ListasN.Nodo current = listaLibros.inicio;
                         while (current != null) {
                 %>
-                <div class="col-lg-6 col-xl-4">
+                <div class="col-lg-6 col-xl-4"><br>
                     <div class="card mb-5 mb-xl-0">
                         <div class="card-body p-5">
                             <div class="small text-uppercase fw-bold text-muted">Libro</div>
@@ -39,20 +39,20 @@
                                     Año de publicacion: <%= current.libro.getAnio()%>
                                 </li>
                                 <li class="mb-2">
-                                    <img src="imagenes/<%= current.libro.getFoto()%>" alt="<%= current.libro.getTitulo()%>" width="100" height="150">
+                                    <img src="imagenes/<%= current.libro.getFoto()%>" alt="<%= current.libro.getTitulo()%>" width="200" height="250">
                                 </li>
                             </ul>
                             <div class="d-grid">
-                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="tituloEliminar('<%= current.libro.getTitulo() %>')">Eliminar</a>
+                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="extraerTitulo('<%= current.libro.getTitulo() %>')">Eliminar</a>
                             </div>
                             <br>
                             <div class="d-grid">
-                                <a class="btn btn-outline-success" href="#!" data-bs-toggle="modal" data-bs-target="#PrestarLibro" onclick="tituloEliminar('<%= current.libro.getTitulo() %>')">Prestar Libro</a>
+                                <a class="btn btn-outline-success" href="#!" data-bs-toggle="modal" data-bs-target="#PrestarLibro" onclick="extraerTitulo('<%= current.libro.getTitulo() %>')">Prestar Libro</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <br>
+                </div><br>
+                
                 <%
                             current = current.siguiente;
                         }
@@ -90,7 +90,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Quieres pedir prestado el siguiente  libro?
+                    <p>¿Quieres pedir prestado el siguiente  libro: <span id="bookTitle1"></span></p>
                   </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -102,10 +102,16 @@
             
     <script>
     var Titulo;
-    
-    function tituloEliminar(titulo) {
+    var Prestar;
+    function extraerTitulo(titulo) {
         Titulo = titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
-        document.getElementById("bookTitle").innerText = Titulo;
+        document.getElementById("bookTitle1").innerText = Titulo;
+        
+    }
+    
+    function extraerTituloBuscar(titulo) {
+        Prstar = titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
+        document.getElementById("bookTitle").innerText = Prestar;
         
     }
         
@@ -114,12 +120,12 @@
         Titulo = null;
     }
     
-    function titulo() {
-        return Titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
-        
+    function prestarLibro() {
+        location.href = "SvPrestar?tipo=prestar&titulo=" + Titulo;
+        Titulo = null;        
     }
     
     </script>
     
     
-<%@include file= "templates/footer.jsp" %>  
+<%@include file= "templates/footer.jsp" %>

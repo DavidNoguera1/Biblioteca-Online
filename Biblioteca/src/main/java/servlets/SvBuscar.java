@@ -59,6 +59,6 @@ public class SvBuscar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lógica para el método POST si es necesario
+        
     }
 }

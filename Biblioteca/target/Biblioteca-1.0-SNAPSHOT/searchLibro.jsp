@@ -6,7 +6,7 @@
 
 <%@page import="com.jd.biblioteca.ListasN"%>
 <%@page import="com.jd.biblioteca.Libro"%>
-<%@include file= "templates/headerIndex.jsp" %>
+<%@include file= "templates/header.jsp" %>
 
 <section class="bg-light py-5 border-bottom">
     <div class="container px-5 my-5">
