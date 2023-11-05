@@ -24,10 +24,10 @@
                 </form>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="login.jsp">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="libros.jsp">Libros agregados</a></li>
-                        <li class="nav-item"><a class="nav-link" href="resultados.jsp">Libros Prestados</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="librosPrestados.jsp">Libros Prestados</a></li>
+                        <li class="nav-item"><a class="nav-link" href="index.jsp">Cerrar sesion</a></li>
                     </ul>
                 </div>
             </div>
