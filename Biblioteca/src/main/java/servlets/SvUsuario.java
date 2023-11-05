@@ -1,5 +1,7 @@
 package servlets;
 
+import com.jd.biblioteca.MetodosU;
+import com.jd.biblioteca.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -9,9 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import umariana.tareas.MetodosU;
-import umariana.tareas.Usuario;
-
 /**
  *
  * @author David Noguera
