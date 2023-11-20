@@ -15,15 +15,17 @@ public class Libro implements Serializable {
     public String autor;
     public String anio;
     public String foto;
+    public boolean prestado;
 
     public Libro() {
     }
 
-    public Libro(String titulo, String autor, String anio, String foto) {
+    public Libro(String titulo, String autor, String anio, String foto, boolean prestado) {
         this.titulo = titulo;
         this.autor = autor;
         this.anio = anio;
         this.foto = foto;
+        this.prestado = prestado;
     }
 
     public String getTitulo() {
@@ -57,6 +59,13 @@ public class Libro implements Serializable {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
-    
+
+    public boolean isPrestado() {
+        return prestado;
+    }
+
+    public void setPrestado(boolean prestado) {
+        this.prestado = prestado;
+    }
+
 }

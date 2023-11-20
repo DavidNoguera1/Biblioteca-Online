@@ -38,17 +38,34 @@
                                 <li class="mb-2">
                                     Año de publicacion: <%= current.libro.getAnio()%>
                                 </li>
-                                <li class="mb-2">
+                                <li class="mb-2 ">
                                     <img src="imagenes/<%= current.libro.getFoto()%>" alt="<%= current.libro.getTitulo()%>" width="200" height="250">
                                 </li>
                             </ul>
                             <div class="d-grid">
-                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="extraerTitulo('<%= current.libro.getTitulo() %>')">Eliminar</a>
+                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="extraerTituloEliminar('<%= current.libro.getTitulo() %>')">Eliminar</a>
                             </div>
                             <br>
+                            <%
+                                if (current.libro.isPrestado()== false) {
+                                        
+                                    
+                            %>
                             <div class="d-grid">
-                                <a class="btn btn-outline-success" href="#!" data-bs-toggle="modal" data-bs-target="#PrestarLibro" onclick="extraerTitulo('<%= current.libro.getTitulo() %>')">Prestar Libro</a>
+                                <a class="btn btn-outline-success" href="#!" data-bs-toggle="modal" data-bs-target="#PrestarLibro" onclick="extraerTituloPrestar('<%= current.libro.getTitulo() %>')">Prestar Libro</a>
                             </div>
+                            <%
+                                      
+                                }
+                                else{
+                                
+                            %>
+                            <div class="d-grid">
+                                <a class="btn btn-outline-dark" href="#!" data-bs-toggle="modal" data-bs-target="#libroNoDisponible">Prestar Libro</a>
+                            </div>
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div><br>
@@ -68,11 +85,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Eliminar</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">prestar</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Está seguro de que desea eliminar la tarea: <span id="bookTitle"></span></p> 
+                    <p>¿Estas seguro de que desea eliminar la tarea?: <span id="libroEliminar"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -90,22 +107,45 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Quieres pedir prestado el siguiente  libro: <span id="bookTitle1"></span></p>
+                    <p>¿Quieres pedir prestado el siguiente libro?: <span id="libroPrestar"></span></p>
+                    
                   </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success"  >Prestar </button>
+                    <button type="button" class="btn btn-success" onclick="prestarLibro()">Prestar </button>
                 </div>
             </div>
         </div>
     </div>
-            
+    <div class="modal fade" id="libroNoDisponible" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Prestar Libro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Actualmente libro se encuentra prestado, Selecciona otro libro que se encuentre disponible</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Listo</button>
+                </div>
+            </div>
+        </div>
+    </div>        
     <script>
     var Titulo;
     var Prestar;
-    function extraerTitulo(titulo) {
+    function extraerTituloEliminar(titulo) {
         Titulo = titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
-        document.getElementById("bookTitle1").innerText = Titulo;
+        document.getElementById("libroEliminar").innerText = Titulo;
+        
+    }
+    
+    function extraerTituloPrestar(titulo) {
+        Prestar = titulo; // Guarda el titulo del libro para usarlo en la función eliminarTarea
+        document.getElementById("libroPrestar").innerText = Prestar;
+        
         
     }
     
@@ -121,8 +161,9 @@
     }
     
     function prestarLibro() {
-        location.href = "SvPrestar?tipo=prestar&titulo=" + Titulo;
-        Titulo = null;        
+        location.href = "SvLibro?tipo=prestar&titulo=" + Prestar;
+        Titulo = null;
+        
     }
     
     </script>

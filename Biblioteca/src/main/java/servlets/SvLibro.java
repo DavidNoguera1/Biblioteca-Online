@@ -41,7 +41,9 @@ public class SvLibro extends HttpServlet {
             libros = new ListasN<Libro>();
         }
     }
-
+    
+    
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,6 +54,30 @@ public class SvLibro extends HttpServlet {
 
             //Después de eliminar un libro con éxito en tu servlet
             response.sendRedirect("libros.jsp");
+        }
+        else if (tipo != null && tipo.equals("prestar")) {
+            String tituloAPrestar = request.getParameter("titulo");
+
+            // Buscar el libro en la lista y marcarlo como prestado
+            marcarLibroComoPrestado(tituloAPrestar);
+
+            // Guardar la lista actualizada en el archivo
+            ListasN.guardarLista(libros, getServletContext());
+
+            // Redirigir a la página de libros
+            response.sendRedirect("libros.jsp");
+        }
+        else if (tipo != null && tipo.equals("devolver")) {
+            String tituloToReturn = request.getParameter("titulo");
+
+            // Devolver el libro
+            devolverLibro(tituloToReturn);
+
+            // Guardar la lista actualizada en el archivo
+            ListasN.guardarLista(libros, getServletContext());
+
+            // Después de devolver un libro con éxito en tu servlet
+            response.sendRedirect("librosPrestados.jsp");
         }
     }
     
@@ -64,12 +90,39 @@ public class SvLibro extends HttpServlet {
         // Guarda la lista actualizada en el archivo después de la eliminación
         ListasN.guardarLista(libros, getServletContext());
     }
+    
+    private void marcarLibroComoPrestado(String titulo) {
+        Libro libroEncontrado = libros.buscarLibroPorTituloOAutor(titulo);
+
+        if (libroEncontrado != null) {
+            libroEncontrado.setPrestado(true);
+            System.out.println("Libro marcado como prestado: " + titulo);
+        } else {
+            System.out.println("El libro con el título " + titulo + " no se encontró en la lista.");
+        }
+
+        // Guardar la lista actualizada en el archivo
+        ListasN.guardarLista(libros, getServletContext());
+    }
+
+    private void devolverLibro(String titulo) {
+        Libro libroEncontrado = libros.buscarLibroPorTituloOAutor(titulo);
+
+        if (libroEncontrado != null) {
+            libroEncontrado.setPrestado(false);
+            System.out.println("Libro devuelto con éxito: " + titulo);
+        } else {
+            System.out.println("El libro con el título " + titulo + " no se encontró en la lista.");
+        }
+
+        // Guardar la lista actualizada en el archivo
+        ListasN.guardarLista(libros, getServletContext());
+    }
 
     //Emplearemos el metodo doPost para el añadido de los libros
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         // Obtener la parte del archivo      
         Part imagenPart = request.getPart("foto");
         System.out.println("imagenPart" + imagenPart);
@@ -78,17 +131,16 @@ public class SvLibro extends HttpServlet {
         String fileName = imagenPart.getSubmittedFileName();
         System.out.println("fileName: " + fileName);
 
-        // Directorio donde se almacenara el archivo
+        // Directorio donde se almacenará el archivo
         String uploadDirectory = getServletContext().getRealPath("imagenes");
         System.out.println("uploadDirectory: " + uploadDirectory);
 
-        //Ruta completa del archivo
+        // Ruta completa del archivo
         String filePath = uploadDirectory + File.separator + fileName;
         System.out.println("filePath: " + filePath);
 
-        //Guardar el archivo en el sistemaa de archivos
+        // Guardar el archivo en el sistema de archivos
         try (InputStream input = imagenPart.getInputStream(); OutputStream output = new FileOutputStream(filePath)) {
-
             byte[] buffer = new byte[1024];
             int length;
             while ((length = input.read(buffer)) > 0) {
@@ -101,16 +153,10 @@ public class SvLibro extends HttpServlet {
         String autor = request.getParameter("autor");
         String anio = request.getParameter("anio");
         String foto = fileName;
-
-        // Cargar la lista de libros desde el archivo
-        ListasN<Libro> listaLibros = ListasN.leerLista(getServletContext());
-
-        if (listaLibros == null) {
-            listaLibros = new ListasN<Libro>();
-        }
+        boolean prestado = false;
 
         // Crear un nuevo libro con los datos del formulario
-        Libro nuevoLibro = new Libro(titulo, autor, anio, foto);
+        Libro nuevoLibro = new Libro(titulo, autor, anio, foto, prestado);
 
         // Agregar el libro al comienzo de la lista
         libros.agregarLibroAlComienzo(nuevoLibro);

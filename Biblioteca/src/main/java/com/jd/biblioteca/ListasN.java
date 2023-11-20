@@ -90,6 +90,7 @@ public class ListasN<T> implements Serializable {
             System.out.println("Autor: " + libro.getAutor());
             System.out.println("Año: " + libro.getAnio());
             System.out.println("Foto: " + libro.getFoto());
+            System.out.println("Prestado" + libro.isPrestado());
             System.out.println(); // Separador entre libros
 
             actual = actual.siguiente; // Avanzamos al siguiente nodo
@@ -156,7 +157,24 @@ public class ListasN<T> implements Serializable {
     }
 
     return null; // Retorna null si no se encuentra el libro
-}
+    }
+    
+    public void devolverLibro(String titulo) {
+        Nodo actual = inicio;
+
+        while (actual != null) {
+            if (actual.libro.getTitulo().equals(titulo)) {
+                actual.libro.setPrestado(false); // Cambia el valor de prestado a false
+                System.out.println("Libro devuelto con éxito: " + titulo);
+                return;
+            }
+
+            actual = actual.siguiente; // Avanza al siguiente nodo
+        }
+
+        // Si el libro no se encuentra en la lista
+        System.out.println("El libro con el título " + titulo + " no existe en la lista.");
+    }
 
     
     // Método para guardar la lista en un archivo
@@ -195,5 +213,22 @@ public class ListasN<T> implements Serializable {
         }
 
         return lista;
+    }
+    
+    public void marcarLibroComoPrestado(String titulo) {
+        Nodo actual = inicio;
+
+        while (actual != null) {
+            if (actual.libro.getTitulo().equals(titulo)) {
+                actual.libro.setPrestado(true); // Cambia el valor de prestado a true
+                System.out.println("Libro marcado como prestado: " + titulo);
+                return;
+            }
+
+            actual = actual.siguiente; // Avanza al siguiente nodo
+        }
+
+        // Si el libro no se encuentra en la lista
+        System.out.println("El libro con el título " + titulo + " no existe en la lista.");
     }
 }
