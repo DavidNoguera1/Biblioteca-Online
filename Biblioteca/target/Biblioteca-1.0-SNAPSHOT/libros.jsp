@@ -11,7 +11,7 @@
     <section class="bg-light py-5 border-bottom">
         <div class="container px-5 my-5">
             <div class="text-center mb-5">
-                <h2 class="fw-bolder">Libros disponibles</h2>
+                <h2 class="fw-bolder">Todos los libros agregados</h2>
                 <p class="lead mb-0">Escoge el que mas te guste :)</p>
             </div>
             <div class="row gx-5 justify-content-center">
@@ -22,7 +22,7 @@
 
                     if (listaLibros != null) {
                         ListasN.Nodo current = listaLibros.inicio;
-                        while (current != null) {
+                            while (current != null) {
                 %>
                 <div class="col-lg-6 col-xl-4"><br>
                     <div class="card mb-5 mb-xl-0">
@@ -42,15 +42,15 @@
                                     <img src="imagenes/<%= current.libro.getFoto()%>" alt="<%= current.libro.getTitulo()%>" width="200" height="250">
                                 </li>
                             </ul>
-                            <div class="d-grid">
-                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="extraerTituloEliminar('<%= current.libro.getTitulo() %>')">Eliminar</a>
-                            </div>
-                            <br>
+                            
                             <%
                                 if (current.libro.isPrestado()== false) {
                                         
                                     
                             %>
+                            <div class="d-grid">
+                                <a class="btn btn-outline-danger" href="#!" data-bs-toggle="modal" data-bs-target="#confirmacionModal" onclick="extraerTituloEliminar('<%= current.libro.getTitulo() %>')">Eliminar</a>
+                            </div><br>
                             <div class="d-grid">
                                 <a class="btn btn-outline-success" href="#!" data-bs-toggle="modal" data-bs-target="#PrestarLibro" onclick="extraerTituloPrestar('<%= current.libro.getTitulo() %>')">Prestar Libro</a>
                             </div>
@@ -60,8 +60,10 @@
                                 else{
                                 
                             %>
+                            <br>
+                            <br>
                             <div class="d-grid">
-                                <a class="btn btn-outline-dark" href="#!" data-bs-toggle="modal" data-bs-target="#libroNoDisponible">Prestar Libro</a>
+                                <a class="btn btn-outline-dark" href="#!" data-bs-toggle="modal" data-bs-target="#libroNoDisponible">Libro no disponible</a>
                             </div>
                             <%
                                 }
@@ -89,7 +91,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>¿Estas seguro de que desea eliminar la tarea?: <span id="libroEliminar"></span></p>
+                    <p>¿Estas seguro de que desea eliminar el sigueinte libro?: <span id="libroEliminar"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -121,7 +123,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Prestar Libro</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Libro no disponible</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
