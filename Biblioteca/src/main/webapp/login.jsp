@@ -25,6 +25,12 @@
             <h2 class="fw-bolder">Agrega un nuevo libro</h2>
             <p class="lead mb-0">Asegurese de llenar todos los campos</p>
         </div>
+        
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;" id="registroErrorAlert">
+            Libro ya fue ingresado previamente, escoja otro titulo para agregar a nustra biblioteca.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
                 <form id="contactForm" action="SvLibro" method="POST" enctype="multipart/form-data">
@@ -67,6 +73,36 @@
         if (imageInput.files.length === 0) {
             alert("¡Imagen del libro requerida!");
             event.preventDefault(); // Evita el envío del formulario si no se seleccionó una imagen
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+        var imageInput = document.getElementById("foto");
+        if (imageInput.files.length === 0) {
+            // Utilizar SweetAlert2 en lugar de alert
+            Swal.fire({
+                icon: 'error',
+                title: '¡Error!',
+                text: 'Imagen del libro requerida',
+            });
+            
+            event.preventDefault(); // Evita el envío del formulario si no se seleccionó una imagen
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Obtén la alerta por su ID
+        const registroErrorAlert = document.getElementById('registroErrorAlert');
+
+        // Verifica si hay un parámetro de alerta en la URL (por ejemplo, '?alert=registro-error')
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('alert') && urlParams.get('alert') === 'registro-error') {
+            // Muestra la alerta de registro si el parámetro de alerta es 'registro-error'
+            registroErrorAlert.style.display = 'block';
         }
     });
 </script>

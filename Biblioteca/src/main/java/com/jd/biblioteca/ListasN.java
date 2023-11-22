@@ -176,6 +176,20 @@ public class ListasN<T> implements Serializable {
         System.out.println("El libro con el título " + titulo + " no existe en la lista.");
     }
 
+    public boolean existeLibroPorTitulo(String titulo) {
+        Nodo actual = inicio;
+
+        while (actual != null) {
+            if (actual.libro.getTitulo().equalsIgnoreCase(titulo.trim())) {
+                return true; // Retorna true si el libro con el mismo título se encuentra en la lista
+            }
+
+            actual = actual.siguiente; // Avanza al siguiente nodo
+        }
+
+        return false; // Retorna false si no se encuentra el libro con el mismo título
+    }
+
     
     // Método para guardar la lista en un archivo
     public static void guardarLista(ListasN listaActualizada, ServletContext context) {

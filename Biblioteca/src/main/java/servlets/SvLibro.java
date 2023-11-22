@@ -154,7 +154,15 @@ public class SvLibro extends HttpServlet {
         String anio = request.getParameter("anio");
         String foto = fileName;
         boolean prestado = false;
+        
+        // Verificar si el título ya existe en la lista
+        if (libros.existeLibroPorTitulo(titulo)) {
+            // El libro ya existe, puedes manejar el error de alguna manera
+            response.sendRedirect("login.jsp?alert=registro-error");
+            return;  // Detener el flujo para evitar agregar el libro duplicado
+        }
 
+        
         // Crear un nuevo libro con los datos del formulario
         Libro nuevoLibro = new Libro(titulo, autor, anio, foto, prestado);
 
